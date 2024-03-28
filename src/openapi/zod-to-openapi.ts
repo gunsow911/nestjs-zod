@@ -101,6 +101,11 @@ export function zodToOpenAPI(
     }
   }
 
+  if (is(zodType, z.ZodDate)) {
+    object.type = 'string'
+    object.format = 'date-time'
+  }
+
   if (is(zodType, z.ZodBigInt)) {
     object.type = 'integer'
     object.format = 'int64'

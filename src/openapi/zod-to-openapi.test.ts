@@ -29,6 +29,7 @@ const complexTestSchema = z.object({
   recordWithKeys: z.record(z.number(), z.string()),
   dateString: z.dateString().cast().describe('My date string'),
   zodDateString: z.string().datetime(),
+  date: z.string().datetime(),
   password: z.password(),
   passwordComplex: z
     .password()
@@ -70,6 +71,10 @@ const transformedSchema = z
     minutes: value.seconds / 60,
     hours: value.seconds / 3600,
   }))
+
+const dateSchema = z.object({
+  date: z.date(),
+})
 
 const lazySchema = z.lazy(() => z.string())
 
@@ -230,5 +235,20 @@ it('should serialize lazy schema', () => {
 
   expect(openApiObject).toEqual({
     type: 'string',
+  })
+})
+
+it('should serialize date schema', () => {
+  const openApiObject = zodToOpenAPI(dateSchema)
+
+  expect(openApiObject).toEqual({
+    type: 'object',
+    required: ['date'],
+    properties: {
+      date: {
+        type: 'string',
+        format: 'date-time',
+      },
+    },
   })
 })

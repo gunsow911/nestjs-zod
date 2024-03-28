@@ -10,6 +10,10 @@ Object {
       "maxItems": 3,
       "type": "array",
     },
+    "date": Object {
+      "format": "date-time",
+      "type": "string",
+    },
     "dateString": Object {
       "description": "My date string",
       "format": "date-time",
@@ -210,6 +214,7 @@ Object {
     "recordWithKeys",
     "dateString",
     "zodDateString",
+    "date",
     "password",
     "passwordComplex",
   ],
